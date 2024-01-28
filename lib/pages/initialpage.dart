@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/pages/register_page.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class InitialPage extends StatelessWidget{
   const InitialPage({Key ? key }): super(key: key);
@@ -71,7 +72,15 @@ class InitialPage extends StatelessWidget{
               ),
           child: TextButton(
 
-            onPressed: () {
+            onPressed: () async {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Center(child: CircularProgressIndicator(
+
+                    ),);
+                  });
+              await loginAction();
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const Register()),
@@ -92,4 +101,9 @@ class InitialPage extends StatelessWidget{
         ),
     );
   }
+}
+Future<bool> loginAction() async {
+  //replace the below line of code with your login request
+  await new Future.delayed(const Duration(seconds: 2));
+  return true;
 }

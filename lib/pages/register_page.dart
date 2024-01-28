@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/pages/login_page.dart';
 
 class Register extends StatelessWidget{
   const Register({Key ? key}) : super(key:key);
@@ -102,7 +103,21 @@ const SizedBox( height: 30),
                    style: TextStyle(
                      color: Color(0xFF0500FF),
                    ),),
-                 onTap: () {},
+                 onTap: () async {
+
+                   showDialog(
+                       context: context,
+                       builder: (BuildContext context) {
+                         return Center(child: CircularProgressIndicator(
+
+                         ),);
+                       });
+                   await loginAction();
+                   Navigator.push(
+                     context,
+                     MaterialPageRoute(builder: (context) => const LoginPage()),
+                   );
+                 },
                ),
              ),
 
@@ -111,4 +126,9 @@ const SizedBox( height: 30),
      ),
    );
   }
+}
+Future<bool> loginAction() async {
+  //replace the below line of code with your login request
+  await new Future.delayed(const Duration(seconds: 2));
+  return true;
 }
