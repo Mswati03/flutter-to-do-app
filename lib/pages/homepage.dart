@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/pages/initialpage.dart';
 
 import '../model/todo.dart';
 import '../widgets/todo_item.dart';
@@ -25,9 +26,45 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
-      appBar: _buildAppBar(),
-      body: Stack(
+
+      body:Container(
+        child : Stack(
         children: [
+          const SizedBox(height: 30,),
+          Row(
+            children: [
+              const SizedBox(width: 10,),
+          const Text(
+            'TASKMASTER',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w700,
+              height: 0,
+            ),
+          ),
+          const SizedBox(width: 100,),
+          InkWell(
+            onTap: () async {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Center(child: CircularProgressIndicator(
+
+                    ),);
+                  });
+              await loginAction();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => InitialPage()),
+              );
+            },
+            child: Icon( Icons.exit_to_app_outlined,),
+          ),
+        ],
+          ),
+
           Container(
             padding: EdgeInsets.symmetric(
               horizontal: 20,
@@ -35,6 +72,7 @@ class _HomeState extends State<Home> {
             ),
             child: Column(
               children: [
+                const SizedBox(height: 50,),
                 searchBox(),
                 Expanded(
                   child: ListView(
@@ -124,6 +162,8 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
+    ),
+
     );
   }
 
@@ -197,30 +237,9 @@ class _HomeState extends State<Home> {
     );
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.grey,
-      elevation: 0,
-      title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-        Icon(
-          Icons.menu,
-          color: Colors.black,
-          size: 30,
-        ),
-        Container(
-          height: 50,
-          width: 50,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Icon(
-                Icons.person,
-                color: Colors.black,
-            ),
-          ),
-        ),
-      ]),
-    );
   }
+Future<bool> loginAction() async {
+  //replace the below line of code with your login request
+  await new Future.delayed(const Duration(seconds: 2));
+  return true;
 }
