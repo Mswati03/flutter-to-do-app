@@ -10,6 +10,7 @@ class ForgotPasswordPage extends StatelessWidget{
     double screenwidth=MediaQuery.of(context).size.width;
     double screenheight=MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: Colors.white,
         body: ListView(
         children: [
         const SizedBox(height: 25,),

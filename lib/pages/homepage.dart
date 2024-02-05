@@ -24,17 +24,24 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    double screenwidth=MediaQuery.of(context).size.width;
+    double screenheight=MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.grey,
+
 
       body:Container(
         child : Stack(
         children: [
-          const SizedBox(height: 30,),
+          const SizedBox(height: 150,),
           Row(
+
             children: [
-              const SizedBox(width: 10,),
-          const Text(
+              const SizedBox(width: 20,),
+
+            const Align(
+            alignment: Alignment.topCenter,
+              child : Text(
             'TASKMASTER',
             style: TextStyle(
               color: Colors.black,
@@ -43,30 +50,34 @@ class _HomeState extends State<Home> {
               fontWeight: FontWeight.w700,
               height: 0,
             ),
-          ),
-          const SizedBox(width: 100,),
-          InkWell(
+          ),),
+          const SizedBox(width: 270,),
+          Align(
+            alignment: Alignment.topCenter,
+
+              child : InkWell(
             onTap: () async {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return Center(child: CircularProgressIndicator(
-
-                    ),);
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   });
               await loginAction();
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => InitialPage()),
+                MaterialPageRoute(builder: (context) => const InitialPage()),
               );
             },
-            child: Icon( Icons.exit_to_app_outlined,),
+            child: const Icon( Icons.exit_to_app_outlined,),
+          ),
           ),
         ],
           ),
 
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 15,
             ),
@@ -78,11 +89,11 @@ class _HomeState extends State<Home> {
                   child: ListView(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           top: 50,
                           bottom: 20,
                         ),
-                        child: Text(
+                        child: const Text(
                           'Tasks',
                           style: TextStyle(
                             fontSize: 30,
@@ -107,12 +118,12 @@ class _HomeState extends State<Home> {
             child: Row(children: [
               Expanded(
                 child: Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     bottom: 20,
                     right: 20,
                     left: 20,
                   ),
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                     vertical: 5,
                   ),
@@ -130,19 +141,19 @@ class _HomeState extends State<Home> {
                   ),
                   child: TextField(
                     controller: _todoController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         hintText: 'Enter a new task',
                         border: InputBorder.none),
                   ),
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   bottom: 20,
                   right: 20,
                 ),
                 child: ElevatedButton(
-                  child: Text(
+                  child: const Text(
                     '+',
                     style: TextStyle(
                       fontSize: 40,
@@ -153,7 +164,7 @@ class _HomeState extends State<Home> {
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.lightBlue,
-                    minimumSize: Size(60, 60),
+                    minimumSize: const Size(60, 60),
                     elevation: 10,
                   ),
                 ),
@@ -208,7 +219,7 @@ class _HomeState extends State<Home> {
 
   Widget searchBox() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -216,7 +227,7 @@ class _HomeState extends State<Home> {
       child: TextField(
         textAlign: TextAlign.center,
         onChanged: (value) => _runFilter(value),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
 
           contentPadding: EdgeInsets.all(10),
           prefixIcon: Icon(
