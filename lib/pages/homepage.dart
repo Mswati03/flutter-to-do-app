@@ -35,45 +35,50 @@ class _HomeState extends State<Home> {
         children: [
           const SizedBox(height: 150,),
           Row(
-
             children: [
               const SizedBox(width: 20,),
-
-            const Align(
-            alignment: Alignment.topCenter,
-              child : Text(
-            'TASKMASTER',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w700,
-              height: 0,
-            ),
-          ),),
-          const SizedBox(width: 270,),
-          Align(
-            alignment: Alignment.topCenter,
-
-              child : InkWell(
-            onTap: () async {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  });
-              await loginAction();
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const InitialPage()),
-              );
-            },
-            child: const Icon( Icons.exit_to_app_outlined,),
-          ),
-          ),
-        ],
+              Flexible(
+                flex: 1,
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'TASKMASTER',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
+                      height: 0,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: InkWell(
+                    onTap: () async {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                      );
+                      await loginAction();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const InitialPage()),
+                      );
+                    },
+                    child: Icon(Icons.exit_to_app_outlined,),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 20,),
+            ],
           ),
 
           Container(

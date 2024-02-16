@@ -2,14 +2,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/pages/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Register extends StatelessWidget{
   const Register({Key ? key}) : super(key:key);
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth auth = FirebaseAuth.instance;
     double screenwidth=MediaQuery.of(context).size.width;
     double screenheight=MediaQuery.of(context).size.height;
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
+
    return Scaffold(
      body: ListView(
        children: [
@@ -45,6 +50,7 @@ class Register extends StatelessWidget{
 
            padding: EdgeInsets.all(15),
            child: TextField(
+             controller: emailController,
              decoration: InputDecoration(
                border: OutlineInputBorder(),
                labelText: 'Email',
@@ -61,6 +67,7 @@ class Register extends StatelessWidget{
            padding: EdgeInsets.all(15),
            child: TextField(
              obscureText: true,
+             controller: passwordController,
              decoration: InputDecoration(
                border: OutlineInputBorder(),
                labelText: 'Password',
@@ -81,9 +88,32 @@ const SizedBox( height: 30),
            ),
            child: TextButton(
 
-             onPressed: () {
-               // Respond to button press
-             },
+             onPressed: () async {
+
+                 showDialog(
+                     context: context,
+                     builder: (BuildContext context) {
+                       return Center(child: CircularProgressIndicator(
+
+                       ),);
+                     });
+                 try {
+                   UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                     email:  emailController.text.toString().trim(),
+                     password: passwordController.text,
+                   );
+                   print(emailController.text.toString().trim());
+                   print('yess');
+                 } catch (e) {
+                   print(e);
+                 }
+                 await loginAction();
+                 Navigator.push(
+                   context,
+                   MaterialPageRoute(builder: (context) => const LoginPage()),
+                 );
+               },// Respond to button press
+
              child:Text(
                'Register',
                style: TextStyle(

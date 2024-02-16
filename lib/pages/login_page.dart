@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/pages/forgot_password.dart';
 import 'package:todo_app/pages/homepage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatelessWidget{
   const LoginPage({Key ? key }): super(key: key);
@@ -12,6 +13,8 @@ class LoginPage extends StatelessWidget{
   Widget build(BuildContext context) {
     double screenwidth=MediaQuery.of(context).size.width;
     double screenheight=MediaQuery.of(context).size.height;
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
      return Scaffold(
        body: ListView(
          children: [
@@ -47,6 +50,7 @@ class LoginPage extends StatelessWidget{
 
                padding: EdgeInsets.all(15),
                child: TextField(
+                 controller: emailController,
                  decoration: InputDecoration(
                    border: OutlineInputBorder(),
                    labelText: 'Email',
@@ -62,6 +66,7 @@ class LoginPage extends StatelessWidget{
              child : Padding(
                padding: EdgeInsets.all(15),
                child: TextField(
+                 controller: passwordController,
                  obscureText: true,
                  decoration: InputDecoration(
                    border: OutlineInputBorder(),
@@ -91,6 +96,18 @@ class LoginPage extends StatelessWidget{
 
                        ),);
                      });
+                 try {
+                   final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                     email:  emailController.text.toString().trim(),
+                     password: passwordController.text,
+                   );
+                 } on FirebaseAuthException catch (e) {
+                   if (e.code == 'user-not-found') {
+                     print('No user found for that email.');
+                   } else if (e.code == 'wrong-password') {
+                     print('Wrong password provided for that user.');
+                   }
+                 }
                  await loginAction();
                  Navigator.push(
                    context,
